@@ -1,0 +1,20 @@
+{
+  "name": "glassy-worms",
+  "version": "0.0.1",
+  "description": "Beautiful worms on background",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nim579/glassy-worms.git"
+  },
+  "author": "Nick Iv",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "node-srv": "~1.0.1",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-contrib-concat": "~0.4.0",
+    "grunt-contrib-uglify": "~0.2.6",
+    "coffee-script": "~1.7.1",
+    "grunt-zip": "~0.13.0"
+  }
+}

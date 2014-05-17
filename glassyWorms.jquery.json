@@ -1,0 +1,28 @@
+{
+  "name": "glassyWorms",
+  "version": "0.0.1",
+  "title": "Glassy worms",
+  "description": "Beautiful worms on background",
+  "keywords": [
+    "sketch",
+    "effects"
+  ],
+  "author": {
+    "name": "Nick Iv",
+    "email": "studio@nim579.ru",
+    "url": "http://nick-iv.me"
+  },
+  "bugs": "https://github.com/nim579/glassy-worms/issues",
+  "homepage": "https://github.com/nim579/glassy-worms/",
+  "docs": "https://github.com/nim579/glassy-worms/README.md",
+  "download": "https://github.com/nim579/glassy-worms/releases",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/nim579/glassy-worms/blob/master/LICENSE"
+    }
+  ],
+  "dependencies": {
+    "jquery": ">=1.6"
+  }
+}
