@@ -2,12 +2,13 @@ module.exports = (grunt)->
 
     grunt.initConfig
         pkg: grunt.file.readJSON('./package.json')
+        bowerConfig: grunt.file.readJSON('./bower.json')
         jqConfig: grunt.file.readJSON('./glassyWorms.jquery.json')
 
         meta:
             banner: '// Plugin <%= pkg.name %>. <%= jqConfig.description %>\n' +
-                    '// Aunthor: <%= pkg.author %>. Sorced 17 May 2014\n' +
-                    '// Promo: http://dev.nim579.ru/<%= pkg.name %>\n' +
+                    '// Author: <%= pkg.author %>. Sorced 17 May 2014\n' +
+                    '// Site: http://dev.nim579.ru/<%= pkg.name %>\n' +
                     '// Version: <%= pkg.version %> (<%= grunt.template.today() %>)\n'
 
         concat:
@@ -15,8 +16,8 @@ module.exports = (grunt)->
                 banner: '<%= meta.banner %>'
 
             plugin:
-                src: ['./src/*.js']
-                dest: './builds/<%= jqConfig.name %>-<%= pkg.version %>.js'
+                src: ['./lib/*.js']
+                dest: './builds/<%= jqConfig.name %>.js'
 
         uglify:
             plugin:
@@ -24,17 +25,20 @@ module.exports = (grunt)->
                     banner: '<%= meta.banner %>'
 
                 files:
-                    './builds/<%= jqConfig.name %>.min-<%= pkg.version %>.js': ['./builds/<%= jqConfig.name %>-<%= pkg.version %>.js']
+                    './builds/<%= jqConfig.name %>.min.js': ['./builds/<%= jqConfig.name %>.js']
 
         coffee:
             plugin:
-                files: [
-                    expand: true
-                    cwd: './src'
-                    src: ['*.coffee']
-                    dest: './src'
-                    ext: '.js'
-                ]
+                options:
+                    join: false
+                    sourceMap: false
+                    bare: false
+
+                expand: true
+                cwd: 'src'
+                src: ['**/*.coffee']
+                dest: './lib'
+                ext: '.js'
 
         watch:
             coffee:
@@ -44,8 +48,8 @@ module.exports = (grunt)->
         zip:
             app:
                 cwd: './builds'
-                src: ['./builds/<%= jqConfig.name %>.min-<%= pkg.version %>.js', './builds/<%= jqConfig.name %>-<%= pkg.version %>.js', 'README.md']
-                dest: './builds/<%= jqConfig.name %>-<%= pkg.version %>.zip'
+                src: ['./builds/<%= jqConfig.name %>.min.js', './builds/<%= jqConfig.name %>.js', 'README.md']
+                dest: './builds/<%= jqConfig.name %>.zip'
 
         srv:
             demo:
@@ -57,38 +61,29 @@ module.exports = (grunt)->
     grunt.loadNpmTasks 'grunt-contrib-watch'
     grunt.loadNpmTasks 'grunt-contrib-concat'
     grunt.loadNpmTasks 'grunt-contrib-uglify'
+    grunt.loadNpmTasks 'grunt-contrib-coffee'
     grunt.loadNpmTasks 'grunt-zip'
     grunt.loadNpmTasks 'node-srv'
-
-
-    coffee = require 'coffee-script'
-    path = require 'path'
-
-    grunt.registerMultiTask 'coffee', 'Compile coffee', ()->
-        @files.forEach (file)->
-            coffeeCode = grunt.file.read file.src[0]
-
-            jsCode = coffee.compile grunt.util._.template coffeeCode, grunt.config.get('pkg')
-            
-            grunt.file.write file.dest, jsCode
-            grunt.log.ok 'Compiled coffee file: ' + file.src[0] + ' at ' + grunt.template.today()
-
 
     grunt.registerTask 'build', 'Build project', (test)->
         grunt.log.write 'Run build...'
 
         pkg = grunt.config.get('pkg')
         jqConfig = grunt.config.get('jqConfig')
+        bowerConfig = grunt.config.get('bowerConfig')
 
         jqConfig.version = pkg.version
+        bowerConfig.version = pkg.version
 
         grunt.file.write './glassyWorms.jquery.json', JSON.stringify jqConfig, null, 2
+        grunt.file.write './bower.json', JSON.stringify bowerConfig, null, 2
 
-        grunt.task.run ['coffee', 'concat:plugin', 'uglify', 'zip', 'cleadBuilds']
+        grunt.task.run ['clear', 'coffee', 'concat:plugin', 'uglify', 'zip']
 
 
-    grunt.registerTask 'cleadBuilds', 'Clean builds folder', ()->
-        files = grunt.file.expand './builds/*.js'
+    grunt.registerTask 'clear', 'Clean builds folder', ()->
+        files = grunt.file.expand './lib/**/*'
+
         files.forEach (file)->
             try
                 grunt.file.delete file

@@ -1,0 +1,5 @@
+Gruntfile.coffee
+src
+builds
+.git*
+*.coffee

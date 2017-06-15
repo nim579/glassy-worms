@@ -1,0 +1,29 @@
+{
+  "name": "glassy-worms",
+  "description": "Beautiful worms on background",
+  "main": "lib/index.js",
+  "authors": [
+    "Nick Iv"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "jQuery",
+    "Sketch",
+    "Canvas",
+    "WebGL",
+    "effects"
+  ],
+  "homepage": "https://github.com/nim579/glassy-worms",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "soulwire-sketch": "*"
+  },
+  "version": "0.0.2"
+}

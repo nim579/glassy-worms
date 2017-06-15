@@ -8,13 +8,23 @@
   },
   "author": "Nick Iv",
   "license": "MIT",
+  "main": "lib/index.js",
+  "scripts": {
+    "prepublish": "grunt build",
+    "version": "npm run prepublish && git add ."
+  },
   "devDependencies": {
-    "grunt": "~0.4.5",
-    "node-srv": "~1.0.1",
-    "grunt-contrib-watch": "~0.6.1",
-    "grunt-contrib-concat": "~0.4.0",
-    "grunt-contrib-uglify": "~0.2.6",
-    "coffee-script": "~1.7.1",
-    "grunt-zip": "~0.13.0"
+    "coffee-script": "^1.12.6",
+    "grunt": "^1.0.1",
+    "grunt-contrib-coffee": "^1.0.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-uglify": "^3.0.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-zip": "^0.17.1",
+    "node-srv": "^2.0.1"
+  },
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "sketch-js": "^1.1.3"
   }
 }
