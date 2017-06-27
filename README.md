@@ -1,6 +1,8 @@
 # Glassy worms
 
-Beautiful worms on background
+Beautiful worms on background.
+
+[Demo](http://dev.nim579.ru/glassy-worms/demos/)
 
 ## Install
 
